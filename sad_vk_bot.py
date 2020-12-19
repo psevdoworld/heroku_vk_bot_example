@@ -44,7 +44,7 @@ donat_keyboard.add_line()
 donat_keyboard.add_button('Оплатить хостинг бота')
 donat_keyboard.add_line()
 donat_keyboard.add_button('Я передумал')
-
+send_message(76904317,"41")
 gamers={}
 # Работа с сообщениями
 longpoll = VkLongPoll(vk)

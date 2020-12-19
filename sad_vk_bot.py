@@ -36,6 +36,15 @@ game_over_keyboard.add_button('Выйти')
 game_over_keyboard.add_line()
 game_over_keyboard.add_button('Продолжить(просто введи число)')
 
+donat_keyboard = VkKeyboard(one_time = True)    #<1=====
+donat_keyboard.add_button('Помолиться за автора')
+donat_keyboard.add_line()
+donat_keyboard.add_button('Купить автору шаурму')
+donat_keyboard.add_line()
+donat_keyboard.add_button('Оплатить хостинг бота')
+donat_keyboard.add_line()
+donat_keyboard.add_button('Я передумал')
+
 gamers={}
 # Работа с сообщениями
 longpoll = VkLongPoll(vk)
@@ -73,12 +82,28 @@ for event in longpoll.listen():
                 elif text == 'Об авторе'.lower():
                     send_message(user_id,"Damir",back_keyboard)
                 elif text == 'Сделать пожертвование'.lower():
-                    send_message(user_id,"Платежка еще не подключена",back_keyboard)
+                    send_message(user_id,"Выберите тип пожертвования",donat_keyboard)
                 elif text == 'Сыграть в игру'.lower():
                     from random import randint
                     gamers[user_id] = randint(1,9000)
                     send_message(user_id,"угадывай")
                 elif text == 'узнать погоду'.lower():
                     send_message(user_id,"ясно",back_keyboard)
+                    # donat_keyboard.add_button('Помолиться за автора')
+                    # donat_keyboard.add_line()
+                    # donat_keyboard.add_button('Купить автору шаурму')
+                    # donat_keyboard.add_line()
+                    # donat_keyboard.add_button('Оплатить хостинг бота')
+                    # donat_keyboard.add_line()
+                    # donat_keyboard.add_button('Я передумал')
+                elif text == 'Помолиться за автора'.lower():
+                    send_message(user_id,"...🕯️...",main_keyboard)
+                elif text == 'Купить автору шаурму'.lower():
+                    send_message(user_id,"лучшая шаурма по мнению автора - в simple, возле Idea.",main_keyboard)
+                elif text == 'Оплатить хостинг бота'.lower():
+                    send_message(user_id,"текущая стоимость хостинга - $0.00, хостинг оплачен на следующие ████ лет.\n спасибо зазаботу",main_keyboard)
+                elif text == 'Я передумал'.lower():
+                    send_message(user_id,"подумай еще.",donat_keyboard)
+
                 else:
                     send_message(user_id,"Продолжайте",main_keyboard)

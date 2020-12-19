@@ -1,25 +1,25 @@
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
-from vk_api.keyboard import VkKeyboard  
+from vk_api.keyboard import VkKeyboard
 key = "718b2c63e7fd9294683c39658eca016d993e30029e90f0d9c2d9bf01f101b81c9ce8ec47636e3bdc88b75"
 # Авторизуемся как сообщество
 vk = vk_api.VkApi(token=key)
 
-def send_message(user_id, message, keyboard = None):  
+def send_message(user_id, message, keyboard = None):
                 from random import randint
                 vk.method('messages.send',
                           {'user_id': user_id,
                            "random_id":randint(1,1000) ,
                            'message': message,
-                           'keyboard':keyboard.get_keyboard() if keyboard else None,}  
+                           'keyboard':keyboard.get_keyboard() if keyboard else None,}
                           )
 
-start_keyboard = VkKeyboard(one_time = True)  
+start_keyboard = VkKeyboard(one_time = True)
 start_keyboard.add_button('START')
 start_keyboard.add_line()
 start_keyboard.add_button('NOT START')
 
-main_keyboard = VkKeyboard(one_time = True)  
+main_keyboard = VkKeyboard(one_time = True)
 main_keyboard.add_button('Об авторе')
 main_keyboard.add_button('Сделать пожертвование')
 main_keyboard.add_line()
@@ -57,7 +57,7 @@ for event in longpoll.listen():
                         send_message(user_id,"ну ладно :с",main_keyboard)    #<1=====
                     else:
                         send_message(user_id,"те чо игра надоела?",game_over_keyboard)
-                    
+
                     continue
                 if otvet > gamers[user_id]:
                     send_message(user_id,"mnoga")
@@ -67,18 +67,18 @@ for event in longpoll.listen():
                     send_message(user_id,"Победил", main_keyboard)
                     del gamers[user_id]
             else:
-                if text == 'START'.lower():   
-                    send_message(user_id,"Добро пожаловать",main_keyboard)  
-                    
-                elif text == 'Об авторе'.lower():   
+                if text == 'START'.lower():
+                    send_message(user_id,"Добро пожаловать",main_keyboard)
+                    #asdasd
+                elif text == 'Об авторе'.lower():
                     send_message(user_id,"Damir",back_keyboard)
-                elif text == 'Сделать пожертвование'.lower():   
+                elif text == 'Сделать пожертвование'.lower():
                     send_message(user_id,"Платежка еще не подключена",back_keyboard)
                 elif text == 'Сыграть в игру'.lower():
                     from random import randint
                     gamers[user_id] = randint(1,9000)
                     send_message(user_id,"угадывай")
-                elif text == 'узнать погоду'.lower():   
+                elif text == 'узнать погоду'.lower():
                     send_message(user_id,"ясно",back_keyboard)
                 else:
                     send_message(user_id,"Продолжайте",main_keyboard)
